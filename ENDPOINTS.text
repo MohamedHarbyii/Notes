@@ -1,0 +1,37 @@
+$link= https://c238-197-63-254-18.ngrok-free.app/  this is the api link 
+
+
+USER SECTION
+             link                           METHOD              QUERY VARS
+
+=> SIGN UP:  $link/sing-up                  post              name, email,password
+
+
+=> SIGN IN:  $link/sign-in                  post              email,password
+
+
+=> UPDATE:  $link/user/update/{user_id}     post              name,email,password
+
+
+=> DELETE: $link/user/delete/{user_id}      get                       _
+
+
+=> GET_USER_NOTES: user/get_notes/{user_id} get                       _
+
+
+
+NOTES SECTION 
+             link                           METHOD              QUERY VARS
+
+=> CREATE:   note/create                     post               title,caption,user_id
+
+=> update:   note/update/{note_id}           post               same as create
+
+=> delete:   note/delete/{id}                get                    _
+
+=> get_note: note/get/{id}                   get                    _
+
+=> add_to_fav: note/add-to-favorite/{id}     get                    _
+
+
+note: don't forget to add the token param to all the links except login and sign up 

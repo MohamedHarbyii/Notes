@@ -13,6 +13,7 @@ use App\Traits\Messages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Tymon\JWTAuth\JWT;
 
 use function Laravel\Prompts\note;
 
@@ -67,7 +68,8 @@ class UserCon extends Controller
       return response()->json($validator->errors(), 422);
   }
 
-    return $this->createNewToken($request);
+return  $this->createNewToken($request);
+   /*  return $this->success("login successfully",); */
     }
         
     protected function createNewToken(Request $request){
@@ -76,8 +78,9 @@ class UserCon extends Controller
         return response()->json(['error' => 'Unauthorized'], 401);
     }
       return response()->json([
-          'access_token' => $token,
-          
+          'token' => $token,
+          "user"=>JWTAuth::user()
+        
       ]);
 
   }
