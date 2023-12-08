@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $name="mohamed";
-    return view('Register',compact("name"));
+return "m";
 });
