@@ -16,6 +16,9 @@ class note_con extends Controller
     public function __construct()
     {
         $this->middleware("token");
+        $this->middleware("cors");
+
+
     }
     public function create(Request $request) {
       $Validator=Validator::make($request->all(),$this->rules);

@@ -24,12 +24,12 @@ use Illuminate\Support\Facades\Route;
 */
 Route::controller(UserCon::class)->group(
     function(){
-        Route::post("user/update/{id}","update");
-        Route::get("user/delete/{id}","delete");
+        Route::put("user/update/{id}","update");
+        Route::delete("user/delete/{id}","delete");
         Route::post("sign-up","register");
         Route::post("sign-in","login");
-        Route::post("logout","logout");
-        Route::get("user/get_notes/{id}","get_notes");
+        Route::get("logout","logout");
+        Route::get("user/get-notes/{id}","get_notes");
     }
 );
 Route::controller(note_con::class)->group(

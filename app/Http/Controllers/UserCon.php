@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Mail\Registration_Mail;
-use App\Models\Course;
 use App\Models\Note;
 use App\Traits\TRregister;
 
@@ -13,9 +11,7 @@ use App\Traits\Messages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\JWT;
 
-use function Laravel\Prompts\note;
 
 class UserCon extends Controller
 {   
@@ -25,6 +21,9 @@ class UserCon extends Controller
   public function __construct()
 {
   $this->middleware("token",['except' => ['login', 'register']]);
+  $this->middleware("cors");
+
+
 }
 
   static protected $rules=[
@@ -55,7 +54,7 @@ class UserCon extends Controller
         );
          $token=$this->createNewToken($request);
     
-        return $this->success("user added successfully",["user"=>$user,"token"=>$token]);
+        return $this->success("user added successfully",$token);
     }
     
     protected function login(Request $request)
@@ -81,7 +80,7 @@ return  $this->createNewToken($request);
           'token' => $token,
           "user"=>JWTAuth::user()
         
-      ]);
+      ])->withCookie('jwt', $token);;
 
   }
 /* eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0L25vdGVzL3B1YmxpYy9hcGkvc2lnbi11cCIsImlhdCI6MTcwMTg4MzAzMywiZXhwIjoxNzAxODg2NjMzLCJuYmYiOjE3MDE4ODMwMzMsImp0aSI6IlVCeTE1M0lqMFBZaEF4V0MiLCJzdWIiOiIxIiwicHJ2IjoiMjNiZDVjODk0OWY2MDBhZGIzOWU3MDFjNDAwODcyZGI3YTU5NzZmNyJ9.4jWldHU02Y94FP_0KteSdEjHXNtt8XeCuTwvY-1FkEM */
@@ -123,7 +122,8 @@ public function get_notes($user_id) {
   if($user==null) { 
     return $this->error("user isn't found");
   }
-  return Note::join("users","notes.user_id","=","users.id")->select("notes.*")->where("users.id",$user_id)->get();
+  $notes=Note::join("users","notes.user_id","=","users.id")->select("notes.*")->where("users.id",$user_id)->get();
+  return $this->success("notes were found",$notes);
 }
 
 }
