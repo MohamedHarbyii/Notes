@@ -33,7 +33,8 @@ class note_con extends Controller
         $note= Note::find($id);
         if($note==null){return $this->error("note isn't found");}
         
-        $note->update(["user_id"=>$request->user_id,"title"=>$request->title,"caption"=>$request->caption]);
+        $note->title=$request->title;
+        $note->caption=$request->caption;
         $note->save();
         return $this->success("note updated successfully",$note);
     }

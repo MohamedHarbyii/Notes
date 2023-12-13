@@ -5,6 +5,7 @@ use App\Http\Controllers\EnrollmentCon;
 use App\Http\Controllers\lesson_status_con;
 use App\Http\Controllers\lessonCon;
 use App\Http\Controllers\note_con;
+use App\Http\Controllers\notebookCon;
 use App\Http\Controllers\StudentCon;
 use App\Http\Controllers\TeacherCon;
 use App\Http\Controllers\UserCon;
@@ -39,6 +40,11 @@ Route::controller(note_con::class)->group(
         Route::post("note/delete/{id}","delete");
         Route::get("note/get/{id}","get");
         Route::get("note/add-to-favorite/{id}","add_to_favorite");
+    }
+);
+Route::controller(notebookCon::class)->group(
+    function() {
+        Route::post("notebook/create","create");
     }
 );
 
